@@ -1,0 +1,2 @@
+model,speed,range,price
+f-16,1500,1700,2500000
