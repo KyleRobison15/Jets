@@ -5,17 +5,10 @@ import java.util.Scanner;
 public class Drone extends Jet implements Spy, Combat, RemoteControlled {
 
 	public Drone() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Drone(String model, double speed, int range, double price) {
-		super(model, speed, range, price);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Drone(String model, double speed, int range, double price, double fuelCapacityInGallons) {
-		super(model, speed, range, price, fuelCapacityInGallons);
-		// TODO Auto-generated constructor stub
+	public Drone(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		super(model, speedInMph, range, price, fuelCapacityInGallons);
 	}
 
 	@Override
@@ -88,8 +81,11 @@ public class Drone extends Jet implements Spy, Combat, RemoteControlled {
 
 	@Override
 	public void fly() {
+		System.out.println("Drone: " + this.toString());
 		System.out.println("Im flying, but because of polymorphism, I'm flying differently from all the other Jet objects!");
-
+		System.out.println("Number of hours this jet can fly: " + this.getHoursCanFly(getRange(), getSpeedInMph()) + " hours.");
+		System.out.println("Speed in Mach: " + this.getSpeedInMach(getSpeedInMph()));
+		System.out.println();
 	}
 
 	@Override

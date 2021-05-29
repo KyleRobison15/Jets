@@ -4,13 +4,9 @@ public class SpaceShuttle extends Jet implements ExploresSpace {
 
 	public SpaceShuttle() {
 	}
-
-	public SpaceShuttle(String model, double speed, int range, double price) {
-		super(model, speed, range, price);
-	}
-
-	public SpaceShuttle(String model, double speed, int range, double price, double fuelCapacityInGallons) {
-		super(model, speed, range, price, fuelCapacityInGallons);
+	
+	public SpaceShuttle(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		super(model, speedInMph, range, price, fuelCapacityInGallons);
 	}
 
 	@Override
@@ -32,8 +28,11 @@ public class SpaceShuttle extends Jet implements ExploresSpace {
 
 	@Override
 	public void fly() {
+		System.out.println("Space Shuttle: " + this.toString());
 		System.out.println("Just up here floating... Nice and quiet. Shhhh.");
-
+		System.out.println("Number of hours this jet can fly: " + this.getHoursCanFly(getRange(), getSpeedInMph()) + " hours.");
+		System.out.println("Speed in Mach: " + this.getSpeedInMach(getSpeedInMph()));
+		System.out.println();
 	}
 
 	@Override

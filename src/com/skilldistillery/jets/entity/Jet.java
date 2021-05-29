@@ -2,37 +2,41 @@ package com.skilldistillery.jets.entity;
 
 public abstract class Jet{
 	
+	private static final double mphToMachConversion = 0.001303;
+	private static int nextJetId;
+	private int jetId;
 	private String model;
 	private double speedInMph;
 	private int range;
 	private double price;
 	private double fuelCapacityInGallons;
-	private static final double mphToMachConversion = 0.001303;
 	
-	public abstract void fly();
 	public abstract void refuel(double amount);
+	public abstract void fly();
 	
 	public double getSpeedInMach(double speedInMph) {
-		double speedInMach = speedInMph * mphToMachConversion; 
-		
+		double speedInMach = Math.floor((speedInMph * mphToMachConversion)*100) / 100; 
 		return speedInMach;
+	}
+	
+	public double getHoursCanFly(int range, double speedInMph) {
+		double hoursCanFly = Math.floor((range/speedInMph)*100) / 100;
+		return hoursCanFly;
 	}
 	
 	public Jet() {}
 	
 	
-	public Jet(String model, double speed, int range, double price) {
+	public Jet(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		
 		this.model = model;
-		this.speedInMph = speed;
+		this.speedInMph = speedInMph;
 		this.range = range;
 		this.price = price;
-	}
-	
-	public Jet(String model, double speed, int range, double price, double fuelCapacityInGallons) {
-		this(model, speed, range, price);
 		this.fuelCapacityInGallons = fuelCapacityInGallons;
+		this.jetId = nextJetId;
+		nextJetId++;
 	}
-
 	
 	public String getModel() {
 		return model;
@@ -64,12 +68,15 @@ public abstract class Jet{
 	public void setFuelCapacityInGallons(double fuelCapacityInGallons) {
 		this.fuelCapacityInGallons = fuelCapacityInGallons;
 	}
+	public double getId() {
+		return jetId;
+	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Jet [model=").append(model).append(", speedInMph=").append(speedInMph).append(", range=")
-				.append(range).append(", price=").append(price).append("]");
+		builder.append("| Jet ID: ").append(jetId).append(" | Model: ").append(model).append(" | Top Speed: ").append(speedInMph).append(" Mph").append(" | Range: ")
+				.append(range).append(" miles").append(" | Price: ").append(price).append(" |");
 		return builder.toString();
 	}
 	

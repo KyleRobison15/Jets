@@ -6,14 +6,10 @@ public class CargoPlane extends Jet implements CarryCargo {
 	public CargoPlane() {
 	}
 
-	public CargoPlane(String model, double speed, int range, double price) {
-		super(model, speed, range, price);
+	public CargoPlane(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		super(model, speedInMph, range, price, fuelCapacityInGallons);
 	}
 
-	public CargoPlane(String model, double speed, int range, double price, double fuelCapacityInGallons) {
-		super(model, speed, range, price, fuelCapacityInGallons);
-	}
-	
 	@Override
 	public void loadCargo() {
 		System.out.println("Tossing your fragile cargo carelessly onto the conveyor belt...");
@@ -28,8 +24,12 @@ public class CargoPlane extends Jet implements CarryCargo {
 
 	@Override
 	public void fly() {
+		System.out.println("CargoPlane: " + this.toString());
 		System.out.println("I'm flying as slow as possible directly above your house!"
-				+ "Shaking everything and your soul to its core!!!!");
+				+ " Shaking everything and your soul to its core!!!!");
+		System.out.println("Number of hours this jet can fly: " + this.getHoursCanFly(getRange(), getSpeedInMph()) + " hours.");
+		System.out.println("Speed in Mach: " + this.getSpeedInMach(getSpeedInMph()));
+		System.out.println();
 
 	}
 	

@@ -4,15 +4,11 @@ public class FighterJet extends Jet implements Combat {
 
 	public FighterJet() {
 	}
-
-	public FighterJet(String model, double speed, int range, double price) {
-		super(model, speed, range, price);
-	}
-
-	public FighterJet(String model, double speed, int range, double price, double fuelCapacityInGallons) {
-		super(model, speed, range, price, fuelCapacityInGallons);
-	}
 	
+	public FighterJet(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		super(model, speedInMph, range, price, fuelCapacityInGallons);
+	}
+
 	@Override
 	public void fight() {
 		System.out.println("Slingshot.. engage.  Shake and Bake babyyy! Firing rockets!!!");
@@ -27,7 +23,11 @@ public class FighterJet extends Jet implements Combat {
 
 	@Override
 	public void fly() {
+		System.out.println("Fighter Jet: " + this.toString());
 		System.out.println("WOOOSH. I'm fast and agile");
+		System.out.println("Number of hours this jet can fly: " + this.getHoursCanFly(getRange(), getSpeedInMph()) + " hours.");
+		System.out.println("Speed in Mach: " + this.getSpeedInMach(getSpeedInMph()));
+		System.out.println();
 
 	}
 
