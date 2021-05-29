@@ -1,6 +1,6 @@
 package com.skilldistillery.jets.entity;
 
-public abstract class Jet implements Refuelable {
+public abstract class Jet{
 	
 	private String model;
 	private double speedInMph;
@@ -10,6 +10,8 @@ public abstract class Jet implements Refuelable {
 	private static final double mphToMachConversion = 0.001303;
 	
 	public abstract void fly();
+	public abstract void refuel(double amount);
+	
 	public double getSpeedInMach(double speedInMph) {
 		double speedInMach = speedInMph * mphToMachConversion; 
 		
@@ -70,6 +72,7 @@ public abstract class Jet implements Refuelable {
 				.append(range).append(", price=").append(price).append("]");
 		return builder.toString();
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +86,7 @@ public abstract class Jet implements Refuelable {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -105,9 +109,5 @@ public abstract class Jet implements Refuelable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 	
 }
