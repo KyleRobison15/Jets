@@ -24,7 +24,10 @@ public abstract class Jet{
 		return hoursCanFly;
 	}
 	
-	public Jet() {}
+	public Jet() {
+		this.jetId = nextJetId;
+		nextJetId++;
+	}
 	
 	
 	public Jet(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {

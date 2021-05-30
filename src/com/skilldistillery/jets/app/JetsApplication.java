@@ -30,7 +30,7 @@ public class JetsApplication {
 		boolean usingMenu = true;
 		while (usingMenu) {
 			int userChoice = jetsApp.menuChoice(input);
-			usingMenu = jetsApp.doUserChoice(userChoice, jetsApp.airField);
+			usingMenu = jetsApp.doUserChoice(userChoice, jetsApp.airField, input);
 			
 			}
 			
@@ -127,7 +127,7 @@ public class JetsApplication {
 
 	}
 	
-	public boolean doUserChoice (int userChoice, AirField af) {
+	public boolean doUserChoice (int userChoice, AirField af, Scanner input) {
 		
 		switch (userChoice) {
 		
@@ -159,12 +159,28 @@ public class JetsApplication {
 			af.defendFighters();
 			return true;
 		case 10:
-			//TODO add menu option method for adding jet to fleet
+			boolean addingJets = true;
+			Jet userJet;
+			
+			while(addingJets) {
+				int userJetChoice = af.userJetChoice(input);
+				userJet = af.userJetCreation(userJetChoice);
+				userJet = af.userJetConstruction(userJet, input);
+				af.addJet(userJet);
+				addingJets = af.addingJets(input);
+			}
+			
 			return true;
 		case 11:
-			//TODO add menu option method for removing jet from fleet
+			boolean removingJets = true;
+			while(removingJets) {
+				af.userJetRemove(input);
+				removingJets = af.removingJets(input);
+			}
+			
 			return true;
 		case 12:
+			System.out.println("Thanks for flying with us! Goodbye.");
 			return false;
 		default:
 			System.out.println("Your entry was invalid. Please enter the number of the cooresponding menu item.");
