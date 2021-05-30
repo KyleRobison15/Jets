@@ -29,7 +29,9 @@ public class AirField {
 		List<Jet> listOfJets = jets;
 		
 		return listOfJets;
+		
 	}
+	/////////////////////////////// Standard Airfield Operations Methods //////////////////////////////////
 	
 	public void listAllJets() {
 		System.out.println("Current Jets in the Airfield:");
@@ -250,6 +252,28 @@ public class AirField {
 			System.out.println("Invalid choice. Please enter Yes or No.");
 			return true;
 		}
+		
+	}
+	
+	/////////////////////////////// Specialized Airfield Operations Methods //////////////////////////////////
+	
+	public void flyIndividualJet (Scanner input) {
+		
+		int jetId;
+		Jet jetToFly = null;
+		
+		System.out.println("Enter the ID of the jet you would like to fly: ");
+		listAllJets();
+		jetId = input.nextInt();
+		input.nextLine();
+		
+		for (int i = 0; i < getJets().size(); i++) {
+			if (getJets().get(i).getId() == jetId) {
+				jetToFly = getJets().get(i);
+			}
+		}
+		
+		jetToFly.fly();
 		
 	}
 	
