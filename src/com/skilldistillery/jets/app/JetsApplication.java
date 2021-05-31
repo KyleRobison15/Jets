@@ -22,27 +22,23 @@ public class JetsApplication {
 	public static void main(String[] args) {
 		JetsApplication jetsApp = new JetsApplication();
 		Scanner input = new Scanner(System.in);
-		
+
 		jetsApp.airField = jetsApp.readJetsFromFile("jets.txt");
-		
-		
+
 		int userChoice1 = jetsApp.menuChoice1(input);
 		jetsApp.whichMenu(input, userChoice1);
-		
-		
-		
 
-			
-		}
-		
+		input.close();
+	}
+
 	private AirField readJetsFromFile(String fileName) {
 		AirField fleetOfJets = new AirField();
-		
+
 		try (BufferedReader bufIn = new BufferedReader(new FileReader(fileName))) {
 			String line;
-			
+
 			while ((line = bufIn.readLine()) != null) {
-				
+
 				String[] jetRecord = line.split(",");
 				String model = jetRecord[0];
 				double speed = Float.parseFloat(jetRecord[1]);
@@ -50,35 +46,35 @@ public class JetsApplication {
 				double price = Float.parseFloat(jetRecord[3]);
 				double fuelCapacityInGallons = Float.parseFloat(jetRecord[4]);
 				Jet jet;
-				
+
 				switch (model.charAt(0)) {
-				
+
 				case 'F':
 				case 'f':
 					jet = new FighterJet(model, speed, range, price, fuelCapacityInGallons);
 					fleetOfJets.addJet(jet);
 					break;
-					
+
 				case 'C':
 				case 'c':
 					jet = new CargoPlane(model, speed, range, price, fuelCapacityInGallons);
 					fleetOfJets.addJet(jet);
 					break;
-					
+
 				case 'S':
 				case 's':
 				case 'U':
-				case 'u':	
+				case 'u':
 					jet = new SpyPlane(model, speed, range, price, fuelCapacityInGallons);
 					fleetOfJets.addJet(jet);
 					break;
-					
+
 				case 'O':
 				case 'o':
 					jet = new SpaceShuttle(model, speed, range, price, fuelCapacityInGallons);
 					fleetOfJets.addJet(jet);
 					break;
-					
+
 				case 'M':
 				case 'm':
 					jet = new Drone(model, speed, range, price, fuelCapacityInGallons);
@@ -87,65 +83,74 @@ public class JetsApplication {
 				default:
 					jet = new JetImpl(model, speed, range, price, fuelCapacityInGallons);
 					fleetOfJets.addJet(jet);
-					
+
 				}
-				
+
 			}
-			
+
 		} catch (IOException e) {
 			System.err.println(e);
 		}
-		
+
 		return fleetOfJets;
 	}
-	
-	
-	public void whichMenu (Scanner input, int userChoice1) {
-		
+
+	public void whichMenu(Scanner input, int userChoice1) {
+
 		switch (userChoice1) {
-		
+
 		case 1:
 			boolean usingMenu2 = true;
 			while (usingMenu2) {
 				int userChoice2 = menuChoice2(input);
 				usingMenu2 = doStandardAirfieldOptions(userChoice2, airField, input);
-				}
+			}
 			break;
 		case 2:
 			boolean usingMenu3 = true;
 			while (usingMenu3) {
 				int userChoice3 = menuChoice3(input);
 				usingMenu3 = doSpecializedAirfieldOptions(userChoice3, airField, input);
-				}
+			}
 			break;
-			
+
 		default:
 			System.out.println("You entered an invalid choice. Please enter a number.");
-		
-		}
-		
-	}
-	
-	public int menuChoice1 (Scanner input) {
-		int choice;
-		
-		System.out.println("---WELCOME TO THE AIRFIELD---");
-		System.out.println("Which hangar would you like to go to?");
-		System.out.println("--------------------------------------");
-		System.out.println("1. Standard Airfield Operations ");
-		System.out.println("2. Specialized Airfield Operations ");
-		System.out.println("--------------------------------------");
-		
-		choice = input.nextInt();
-		input.nextLine();
+//			whichMenu(input, userChoice1);
 
+		}
+
+	}
+
+	public int menuChoice1(Scanner input) {
+		int choice = 0;
+		boolean usingMenu = true;
+
+		while (usingMenu) {
+			System.out.println("------ WELCOME TO THE AIRFIELD ------");
+			System.out.println("Which hangar would you like to go to?");
+			System.out.println("--------------------------------------");
+			System.out.println("1. Standard Airfield Operations ");
+			System.out.println("2. Specialized Airfield Operations ");
+			System.out.println("--------------------------------------");
+
+			choice = input.nextInt();
+			input.nextLine();
+
+			if (choice == 1 || choice == 2) {
+				usingMenu = false;
+			} else {
+				System.out.println("You entered an invalid choice. Please enter a number.");
+				usingMenu = true;
+			}
+
+		}
 		return choice;
 	}
-	
+
 	public int menuChoice2(Scanner input) {
 		int choice;
 
-		
 		System.out.println("------- HANGAR 1: STANDARD AIRFIELD OPERATIONS -------");
 		System.out.println("Enter the number for which menu option you would like.");
 		System.out.println("------------------------------------------------------");
@@ -170,7 +175,7 @@ public class JetsApplication {
 		return choice;
 
 	}
-	
+
 	public int menuChoice3(Scanner input) {
 		int choice;
 
@@ -178,11 +183,13 @@ public class JetsApplication {
 		System.out.println("Enter the number for which menu option you would like.");
 		System.out.println("------------------------------------------------------");
 		System.out.println("1. Fly an individual jet");
-		System.out.println("2. Go back to hangar menu");
-		System.out.println("3. Go back to hangar menu");
-		System.out.println("4. Go back to hangar menu");
-		System.out.println("5. Go to hangar 1 (Standard Operations)");
-		System.out.println("6. Quit (leave the airfield)");
+		System.out.println("2. Control a drone (only applicable if there is a drone in the fleet)");
+		System.out.println("3. Hire a pilot");
+		System.out.println("4. Save current fleet of jets to file");
+		System.out.println("5. List Fleet");
+		System.out.println("6. Fly all jets");
+		System.out.println("7. Go to hangar 1 (Standard Operations)");
+		System.out.println("8. Quit (leave the airfield)");
 		System.out.println("-------------------------------------------------------");
 
 		choice = input.nextInt();
@@ -190,11 +197,11 @@ public class JetsApplication {
 
 		return choice;
 	}
-	
-	public boolean doStandardAirfieldOptions (int userChoice, AirField af, Scanner input) {
-		
+
+	public boolean doStandardAirfieldOptions(int userChoice, AirField af, Scanner input) {
+
 		switch (userChoice) {
-		
+
 		case 1:
 			af.listAllJets();
 			return true;
@@ -225,8 +232,8 @@ public class JetsApplication {
 		case 10:
 			boolean addingJets = true;
 			Jet userJet;
-			
-			while(addingJets) {
+
+			while (addingJets) {
 				int userJetChoice = af.userJetChoice(input);
 				userJet = af.userJetCreation(userJetChoice);
 				userJet = af.userJetConstruction(userJet, input);
@@ -236,7 +243,7 @@ public class JetsApplication {
 			return true;
 		case 11:
 			boolean removingJets = true;
-			while(removingJets) {
+			while (removingJets) {
 				af.userJetRemove(input);
 				removingJets = af.removingJets(input);
 			}
@@ -250,36 +257,48 @@ public class JetsApplication {
 		default:
 			System.out.println("Your entry was invalid. Please enter the number of the cooresponding menu item.");
 			return true;
-		
+
 		}
 	}
-	
-	public boolean doSpecializedAirfieldOptions (int userChoice, AirField af, Scanner input) {
-		
+
+	public boolean doSpecializedAirfieldOptions(int userChoice, AirField af, Scanner input) {
+
 		switch (userChoice) {
-		
+
 		case 1:
 			af.flyIndividualJet(input);
 			return true;
 		case 2:
-			//Control a drone
+			boolean isDrones = af.isThereDronesInFleet();
+			if (isDrones) {
+				af.controlDrone(input);
+			} else {
+				System.out.println("Sorry there are no drones currently in the fleet.");
+				System.out.println();
+			}
 			return true;
 		case 3:
-			//Hire a pilot
+			af.hirePilot(input);
 			return true;
 		case 4:
-			//Save all jets in airfield to file
+			af.writeFleetToFile(input);
 			return true;
 		case 5:
+			af.listAllJets();
+			return true;
+		case 6:
+			af.flyAllJets();
+			return true;
+		case 7:
 			whichMenu(input, 1);
 			return false;
-		case 6:
+		case 8:
 			System.out.println("Thanks for flying with us! Goodbye.");
 			return false;
 		default:
 			System.out.println("Your entry was invalid. Please enter the number of the cooresponding menu item.");
 			return true;
-		
+
 		}
 	}
 

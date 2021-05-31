@@ -1,7 +1,13 @@
 package com.skilldistillery.jets.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public abstract class Jet{
-	
+
+	private static List<String> pilots;
+	private String pilot;
 	private static final double mphToMachConversion = 0.001303;
 	private static int nextJetId;
 	private int jetId;
@@ -11,8 +17,21 @@ public abstract class Jet{
 	private double price;
 	private double fuelCapacityInGallons;
 	
+	
 	public abstract void refuel(double amount);
 	public abstract void fly();
+	
+	private static void addPilots() {
+		pilots = new ArrayList<>();
+		
+		pilots.add("Maverick");
+		pilots.add("Goose");
+		pilots.add("Iceman");
+		pilots.add("Viper");
+		pilots.add("Cougar");
+		pilots.add("Hollywood");
+		
+	}
 	
 	public double getSpeedInMach(double speedInMph) {
 		double speedInMach = Math.floor((speedInMph * mphToMachConversion)*100) / 100; 
@@ -24,7 +43,23 @@ public abstract class Jet{
 		return hoursCanFly;
 	}
 	
+	private String setInitialPilot () {
+		addPilots();
+		String pilotToAssign;
+		pilotToAssign = pilots.get((int)(Math.random() * pilots.size()));
+		
+		return pilotToAssign;
+	}
+	
+	public void listPilots() {
+		for (String string : pilots) {
+			System.out.println(string); 
+		}
+		
+	}
+	
 	public Jet() {
+		this.pilot = setInitialPilot();
 		this.jetId = nextJetId;
 		nextJetId++;
 	}
@@ -37,9 +72,11 @@ public abstract class Jet{
 		this.range = range;
 		this.price = price;
 		this.fuelCapacityInGallons = fuelCapacityInGallons;
+		this.pilot = setInitialPilot();
 		this.jetId = nextJetId;
 		nextJetId++;
 	}
+	
 	
 	public String getModel() {
 		return model;
@@ -74,11 +111,47 @@ public abstract class Jet{
 	public double getId() {
 		return jetId;
 	}
+	public String getPilot() {
+		return pilot;
+	}
+	
+	public void setPilot(Scanner input) {
+		
+		
+		boolean hiringPilot = true;
+		while (hiringPilot) {
+			
+		System.out.println("Which pilot would you like to hire? (Enter name)");
+		System.out.println("------------------------------------------------");
+		for (String string : pilots) {
+			System.out.println(string);
+		}
+		
+		String pilotToHire = input.nextLine();
+		
+		for (String string : pilots) {
+			if (pilotToHire.equalsIgnoreCase(string)) {
+				this.pilot = pilotToHire;
+			}
+		}
+		
+		if (pilotToHire.equals(null)) {
+			hiringPilot = true;
+		}
+		else {
+			System.out.println("Great choice! You've hired " + pilotToHire + ", a former Top Gun pilot!");
+			System.out.println();
+			hiringPilot = false;
+		}
+		
+		}
+		
+	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("| Jet ID: ").append(jetId).append(" | Model: ").append(model).append(" | Top Speed: ").append(speedInMph).append(" Mph").append(" | Range: ")
+		builder.append("| Jet ID: ").append(jetId).append(" | Pilot: ").append(pilot).append(" | Model: ").append(model).append(" | Top Speed: ").append(speedInMph).append(" Mph").append(" | Range: ")
 				.append(range).append(" miles").append(" | Price: ").append(price).append(" |");
 		return builder.toString();
 	}
