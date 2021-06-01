@@ -30,22 +30,28 @@ For example, the fly() method for a FighterJet is defined differently from that 
 The Drone class in this program is an excellent demonstration of the power of OOP. It is-a Jet but has its own unique method definitions, and also implements three different interfaces! This means it can do all the things a standard Jet, SpyPlane and FighterJet can do on top of its own unique behavior.
 
 ### Other Features and Technologies Used
-*Interfaces
+#### Interfaces:
+
 This program uses 4 different interfaces that are implemented differently by certain types of jets. The drone implements 3 of these interfaces (combat, spy, and remote controlled) because it can behave like a both a SpyPlane and a FighterJet as well as in its own unique way.
 
-*ArrayList Data Structure
+#### ArrayList Data Structure:
+
 The AirField class uses the ArrayList data structure to store Jet objects. This was a very useful way to allow the user to interact with the jets in the fleet. All of the menu options the user can select to do things revolve around being able to access the data within the ArrayList.
 
-*java.io package
+#### java.io package:
+
 I utilized the FileReader and BufferedReader classes and the readLine() method within the java.io package to read in data from an outside text file. The readLine method goes line by line of the text file and parses out each piece of data. Because the text file is formatted so that each line represents the instance fields for a particular jet type, I was able to call the constructors for each type, and pass in the instance fields to instantiate new Jet objects of the correct type.
 
 I also utilized the FileWriter and PrintWriter classes to allow users to save down the data from the current fleet of jets to a text file.
 
-*Debugger
+#### Debugger:
+
 The debugger was absolutely essential for this project. There are several different loops that run in this program, which can become difficult to get right. The debugger allowed me to run the code to a certain breakpoint, and then go line by line to see what each statement was doing in detail.
 
-*Loops
+#### Loops:
+
 There are several loops in this program. While loops are used in conjunction with boolean variables in several methods to print menus for the user and allow them to continue choosing options until they quit. For loops and for each loops are also used quite often to iterate through the AirField's fleet of jets.
 
-*Switches and Fall Through
+#### Switches and Fall Through:
+
 I was able to utilize switches in a few different methods of this program. They were very useful because I knew exactly which options the user could choose for each menu that is displayed. Fall through is also intentionally utilized to capture the potential variances in input from the user.
