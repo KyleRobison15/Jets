@@ -1,5 +1,6 @@
 package com.skilldistillery.jets.entity;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,9 +18,26 @@ public abstract class Jet{
 	private double price;
 	private double fuelCapacityInGallons;
 	
-	
 	public abstract void refuel(double amount);
 	public abstract void fly();
+	
+	public Jet() {
+		this.pilot = setInitialPilot();
+		this.jetId = nextJetId;
+		nextJetId++;
+	}
+	
+	public Jet(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
+		
+		this.model = model;
+		this.speedInMph = speedInMph;
+		this.range = range;
+		this.price = price;
+		this.fuelCapacityInGallons = fuelCapacityInGallons;
+		this.pilot = setInitialPilot();
+		this.jetId = nextJetId;
+		nextJetId++;
+	}
 	
 	private static void addPilots() {
 		pilots = new ArrayList<>();
@@ -57,26 +75,6 @@ public abstract class Jet{
 		}
 		
 	}
-	
-	public Jet() {
-		this.pilot = setInitialPilot();
-		this.jetId = nextJetId;
-		nextJetId++;
-	}
-	
-	
-	public Jet(String model, double speedInMph, int range, double price, double fuelCapacityInGallons) {
-		
-		this.model = model;
-		this.speedInMph = speedInMph;
-		this.range = range;
-		this.price = price;
-		this.fuelCapacityInGallons = fuelCapacityInGallons;
-		this.pilot = setInitialPilot();
-		this.jetId = nextJetId;
-		nextJetId++;
-	}
-	
 	
 	public String getModel() {
 		return model;
@@ -148,11 +146,13 @@ public abstract class Jet{
 		
 	}
 	
+	NumberFormat formatter = NumberFormat.getCurrencyInstance();
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("| Jet ID: ").append(jetId).append(" | Pilot: ").append(pilot).append(" | Model: ").append(model).append(" | Top Speed: ").append(speedInMph).append(" Mph").append(" | Range: ")
-				.append(range).append(" miles").append(" | Price: ").append(price).append(" |");
+				.append(range).append(" miles").append(" | Price: ").append(formatter.format(price)).append(" |");
 		return builder.toString();
 	}
 	

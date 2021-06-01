@@ -95,7 +95,7 @@ public class JetsApplication {
 		return fleetOfJets;
 	}
 
-	public void whichMenu(Scanner input, int userChoice1) {
+	private void whichMenu(Scanner input, int userChoice1) {
 
 		switch (userChoice1) {
 
@@ -116,13 +116,12 @@ public class JetsApplication {
 
 		default:
 			System.out.println("You entered an invalid choice. Please enter a number.");
-//			whichMenu(input, userChoice1);
 
 		}
 
 	}
 
-	public int menuChoice1(Scanner input) {
+	private int menuChoice1(Scanner input) {
 		int choice = 0;
 		boolean usingMenu = true;
 
@@ -148,7 +147,7 @@ public class JetsApplication {
 		return choice;
 	}
 
-	public int menuChoice2(Scanner input) {
+	private int menuChoice2(Scanner input) {
 		int choice;
 
 		System.out.println("------- HANGAR 1: STANDARD AIRFIELD OPERATIONS -------");
@@ -176,7 +175,7 @@ public class JetsApplication {
 
 	}
 
-	public int menuChoice3(Scanner input) {
+	private int menuChoice3(Scanner input) {
 		int choice;
 
 		System.out.println("----- HANGAR 2: SPECIALIZED AIRFIELD OPERATIONS ------");
@@ -198,7 +197,7 @@ public class JetsApplication {
 		return choice;
 	}
 
-	public boolean doStandardAirfieldOptions(int userChoice, AirField af, Scanner input) {
+	private boolean doStandardAirfieldOptions(int userChoice, AirField af, Scanner input) {
 
 		switch (userChoice) {
 
@@ -261,7 +260,7 @@ public class JetsApplication {
 		}
 	}
 
-	public boolean doSpecializedAirfieldOptions(int userChoice, AirField af, Scanner input) {
+	private boolean doSpecializedAirfieldOptions(int userChoice, AirField af, Scanner input) {
 
 		switch (userChoice) {
 
